@@ -11,19 +11,21 @@ let opDone = false
 
 app.get('/json', function (req, res) {
   if (opDone) {
-    const links = ssize(rawData, 10).map(
+    const links = ssize(rawData, 9).map(
       el => find(parseFragment(el).childNodes[0].attrs, ['name', 'src']).value
     )
     res.send(
       JSON.stringify({
+        code: 200,
         message: 'Successful',
         data: links
       })
     )
   } else {
-    res.status(404).send({
+    res.status(404).send(JSON.stringify({
+      code: 404,
       message: 'No JSON data available right now. Reload in a minute or two.'
-    })
+    }))
   }
 })
 

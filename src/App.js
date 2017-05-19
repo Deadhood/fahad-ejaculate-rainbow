@@ -1,20 +1,59 @@
 import React, { Component } from 'react'
-import logo from './logo.svg'
 import './App.css'
 
 class App extends Component {
+  constructor (pr) {
+    super(pr)
+    this.state = {
+      videos: []
+    }
+  }
+
   render () {
     return (
       <div className='App'>
-        <div className='App-header'>
-          <img src={logo} className='App-logo' alt='logo' />
-          <h2>Welcome to React</h2>
-        </div>
-        <p className='App-intro'>
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+        {this.state.videos.length > 0 ? this.state.videos : 'Loading...'}
       </div>
     )
+  }
+
+  componentDidMount () {
+    window.fetch('/json')
+      .then(res => res.json())
+      .then(raw => {
+        if (raw.code === 200) {
+          return raw.data
+        } else {
+          return []
+        }
+      })
+      .then(rows => {
+        if (rows.length > 0) {
+          return rows.map((el, idx) => <iframe
+            src={el}
+            frameBorder='0'
+            width='450px'
+            height='250px'
+            scrolling='no'
+            key={'vid-' + idx}
+            allowFullScreen
+            seamless
+          />)
+        } else {
+          return [
+            "The server didn't return any video.",
+            <br />,
+            'Please try reloading the page in a while.',
+            <br />,
+            <button onClick={() => window.history.go(0)}>Reload</button>
+          ]
+        }
+      })
+      .then(frames => {
+        this.setState({
+          videos: frames
+        })
+      })
   }
 }
 
