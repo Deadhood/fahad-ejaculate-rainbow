@@ -35,6 +35,7 @@ class App extends Component {
             width='450px'
             height='250px'
             scrolling='no'
+            title={idx + 'Spankbang'}
             key={'vid-' + idx}
             allowFullScreen
             seamless
