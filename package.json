@@ -1,0 +1,31 @@
+{
+  "name": "ejaculate-rainbow",
+  "version": "0.1.0",
+  "repository": "https://github.com/deadhood/ejaculate-rainbow.git",
+  "author": "Fahad Hossain <8bit.demoncoder@gmail.com> (http://fahad.gq/)",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "react": "^15.5.4",
+    "react-dom": "^15.5.4"
+  },
+  "devDependencies": {
+    "babel-eslint": "^7.2.3",
+    "npm-run-all": "^4.0.2",
+    "react-scripts": "1.0.0",
+    "standard": "^10.0.2"
+  },
+  "scripts": {
+    "start": "run-p express react",
+    "express": "cd server&& node app.js",
+    "react": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject",
+    "list": "standard"
+  },
+  "standard": {
+    "parser": "babel-eslint"
+  },
+  "proxy": "http://localhost:3030"
+}

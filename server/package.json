@@ -1,0 +1,18 @@
+{
+  "name": "ejaculate-rainbow-server",
+  "version": "1.0.0",
+  "description": "Server for ejaculate rainbow",
+  "main": "app.js",
+  "repository": "git@github.com:deadhood/ejaculate-rainbow.git",
+  "author": "Fahad Hossain <8bit.demoncoder@gmail.com> (http://fahad.gq/)",
+  "license": "MIT",
+  "dependencies": {
+    "babyparse": "^0.4.6",
+    "decompress": "^4.2.0",
+    "download": "^6.1.0",
+    "express": "^4.15.3",
+    "lodash.find": "^4.6.0",
+    "lodash.samplesize": "^4.2.0",
+    "parse5": "^3.0.2"
+  }
+}
