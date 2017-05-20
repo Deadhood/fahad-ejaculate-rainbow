@@ -1,17 +1,26 @@
 const path = require('path')
 const Express = require('express')
-const download = require('download')
+
 const baby = require('babyparse')
-const ssize = require('lodash.samplesize')
-const find = require('lodash.find')
+const download = require('download')
 const { parseFragment } = require('parse5')
+
+const minn = require('lodash.min')
+const find = require('lodash.find')
+const ssize = require('lodash.samplesize')
+
 const app = new Express()
 let rawData
 let opDone = false
 
+app.get('/', function (req, res) {
+  res.redirect('json')
+})
+
 app.get('/json', function (req, res) {
   if (opDone) {
-    const links = ssize(rawData, 9).map(
+    const num = minn([(req.query.num || 6), rawData.length + 1])
+    const links = ssize(rawData, num).map(
       el => find(parseFragment(el).childNodes[0].attrs, ['name', 'src']).value
     )
     res.send(
@@ -29,7 +38,8 @@ app.get('/json', function (req, res) {
   }
 })
 
-function startDownload () {
+app.listen(3030, function () {
+  console.log('Express is listening on port 3030')
   download(
     'https://spankbang.com/static_desktop/CSV/spankbang.24hr.zip',
     path.resolve(__dirname),
@@ -38,9 +48,4 @@ function startDownload () {
     rawData = baby.parseFiles('spankbang.24hr.csv').data.map(r => r[0])
     opDone = true
   })
-}
-
-app.listen(3030, 'localhost', function () {
-  console.log('Express is listening on port 3030')
-  startDownload()
 })
